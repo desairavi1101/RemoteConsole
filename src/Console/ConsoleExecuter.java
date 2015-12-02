@@ -5,92 +5,40 @@
  */
 package Console;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
  * @author Ravi Desai
  */
 public class ConsoleExecuter {
-    private Process process;
-    private IOThreadHandeler ioThread;
-    private IOThreadHandeler errThread;
-    private InputStream in;
-    private InputStream err;
-    private OutputStream out;
-    
+   
+    private ProcessBuilder pb;
+    public Process process;
     public ConsoleExecuter() {
-       
+        
     }
     
-    public void createProcess(String startCommand) {
-        ProcessBuilder pb = new ProcessBuilder(startCommand);
-        try {
-            process = pb.start();
-            in = process.getInputStream();
-            out = process.getOutputStream();
-            err = process.getErrorStream();
-            ioThread = new IOThreadHandeler(in);
-            errThread = new IOThreadHandeler(err);
-            ioThread.start();
-            errThread.start();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } 
+    public void initilize(String command) {
+        String[] cmd = {"cmd", "/c", command};
+        pb = new ProcessBuilder(cmd);
     }
+    
+    public void execute() throws IOException {
+        process = pb.start();
+    }
+    
+    public InputStream getInputStream() {
+        return process.getInputStream();
+    } 
+    
+    public InputStream getErrorStream() {
+        return process.getInputStream();
+    } 
     
     public void execute(String command) {
-        try {
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out));
-            Scanner sc = new Scanner(new InputStreamReader(in));
-             {
-                writer.write(command);
-                writer.newLine();
-                writer.flush();
-            }
-            
-            
-   
-        } catch (IOException ex) {
-            ex.printStackTrace();   
-        }
-    }
-    
-    public void exit() {
-        try {
-            ioThread.stop();
-            process.destroy();
-            in.close();
-            out.close();
-            
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-    
-    public static void main(String[] args) {
         
-        ConsoleExecuter console = new ConsoleExecuter();
-        console.createProcess("cmd");
-        Scanner sc = new Scanner(System.in);
-        
-        while(true) {
-            System.out.print("Enter Command : ");
-            String cmd = sc.nextLine();
-            console.execute(cmd);
-        }  
-       
     }
-    
-    
 }
