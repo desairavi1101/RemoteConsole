@@ -21,6 +21,8 @@ public class ConsoleServer {
     
     public static void main(String[] args) {
         TCPServer server = new TCPServer();
+        server.createServer(8080);
+        server.accept();
         ConsoleExecuter executer = new ConsoleExecuter();
         executer.initilize("dir");
         try {

@@ -7,11 +7,14 @@ package Console;
 
 import Network.TCPClient;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,17 +24,17 @@ public class ConsoleClient {
     
     public static void main(String[] args) {
         TCPClient client = new TCPClient();
-        ConsoleExecuter executer = new ConsoleExecuter();
-        executer.initilize("dir");
+        client.connect("localhost", 8080);
+        
         try {
-            executer.execute();
-            InputStream is = executer.getInputStream();
-            InputStream err = executer.getErrorStream();
+            InputStream serverIn = client.getInputStream();
             
-            
+            OutputStream out = new ByteArrayOutputStream();
+            readInputStream(serverIn, out);
         } catch (IOException ex) {
-            ex.printStackTrace();
+            
         }
+       
         
         
         
@@ -48,11 +51,7 @@ public class ConsoleClient {
         
         while((line = reader.readLine()) != null) {
             printstream.println(line);
-        }
-        
-        
-    }
-    
-        
-
+            System.out.println(line);
+        } 
+    }       
 }
