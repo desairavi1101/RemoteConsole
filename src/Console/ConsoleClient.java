@@ -10,6 +10,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintStream;
 
 /**
  *
@@ -24,6 +26,9 @@ public class ConsoleClient {
         try {
             executer.execute();
             InputStream is = executer.getInputStream();
+            InputStream err = executer.getErrorStream();
+            
+            
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -36,14 +41,16 @@ public class ConsoleClient {
         
     }
     
-    public static String readInputStream(InputStream in) throws IOException {
-        StringBuffer buffer = new StringBuffer();
+    public static void readInputStream(InputStream in,OutputStream out) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         String line;
+        PrintStream printstream = new PrintStream(out);
+        
         while((line = reader.readLine()) != null) {
-            buffer.append(line);
+            printstream.println(line);
         }
-        return buffer.toString();
+        
+        
     }
     
         
