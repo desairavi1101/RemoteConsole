@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,6 +24,8 @@ import java.util.logging.Logger;
 public class ConsoleClient {
     
     public static void main(String[] args) {
+        
+        Scanner sc = new Scanner(System.in);
         TCPClient client = new TCPClient();
         client.connect("localhost", 8080);
         
@@ -33,15 +36,7 @@ public class ConsoleClient {
             readInputStream(serverIn, out);
         } catch (IOException ex) {
             
-        }
-       
-        
-        
-        
-        
-        
-        
-        
+        }        
     }
     
     public static void readInputStream(InputStream in,OutputStream out) throws IOException {
