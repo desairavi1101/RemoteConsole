@@ -22,15 +22,8 @@ public class ConsoleExecuter {
     }
     
     public void initilize(String command) {
-        if(System.getProperty("os.name").equals("Linux")){
-            String[] cmd = {"/bin/bash", "-c", command};
-            pb = new ProcessBuilder(cmd);
-            
-        }
-        else{
-            String[] cmd = {"cmd", "/c", command};
-            pb = new ProcessBuilder(cmd);
-        }
+        String[] cmd = OSHelper.getProcessCommand(command);
+        pb = new ProcessBuilder(cmd);
     }
     
     public void execute() throws IOException {

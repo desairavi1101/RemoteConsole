@@ -51,10 +51,10 @@ public class ConsoleServer {
         /*Authenticate*/
         String message = "hello";
         
-        //ConsoleExecuter executer = new ConsoleExecuter();
-        //executer.initilize("dir");
+        
+        
         try {
-            // InputStream processIn = executer.getErrorStream();
+            // InputStream processIn = executer.getInputStream();
             OutputStream clientOut = server.getOutputStream();
             InputStream clientIn = server.getInputStream();
             PrintStream writer = new PrintStream(clientOut);
@@ -75,6 +75,26 @@ public class ConsoleServer {
             
             /*Send OS Details */
             OSHelper.printOSDetails(clientOut);
+            
+            /*Execute command*/
+            {
+                String command = reader.readLine();
+                ConsoleExecuter executer = new ConsoleExecuter();
+                executer.initilize(command);
+                executer.execute();
+                InputStream processIn = executer.getInputStream();
+                InputStream processErr = executer.getErrorStream();
+                
+                readInputStream(processIn, clientOut);
+                readInputStream(processErr, clientOut);
+                
+                /*Satus Code*/
+                System.out.println(executer.getExitCode());
+                
+                
+            }
+            
+            
             
             //readInputStream(processIn, clientOut);
             

@@ -77,15 +77,28 @@ public class ConsoleClient {
                     key = sc.nextLine();
                 }
             }
-            
+            OutputStream out = new ByteArrayOutputStream();
             System.out.println("");
             /*Read Server OS Info */
             System.out.println(reader.readLine());
             System.out.println(reader.readLine());
             
+            String command = "";
+            {
+                System.out.print("Enter Command  : ");
+                command = sc.nextLine();
+                writer.println(command);
+                readInputStream(serverIn, out);
+                
+                // Print Exit code
+                
+                System.err.println("Exit Code : " + reader.readLine());
+                
+                
+            }
             
             
-            OutputStream out = new ByteArrayOutputStream();
+            
             // readInputStream(serverIn, out);
         } catch (IOException ex) {
             

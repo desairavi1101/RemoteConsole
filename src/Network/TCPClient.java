@@ -41,4 +41,11 @@ public class TCPClient {
     public OutputStream getOutputStream() throws IOException {
         return socket.getOutputStream();
     } 
+    public void disconnect() {
+        try {
+            socket.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 }

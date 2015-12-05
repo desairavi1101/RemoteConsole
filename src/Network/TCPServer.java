@@ -51,4 +51,13 @@ public class TCPServer {
     public OutputStream getOutputStream() throws IOException {
         return socket.getOutputStream();
     }    
+    
+    public void disconnect(){
+        try {
+            socket.close();
+            server.close();
+        } catch(IOException ex) {
+            ex.printStackTrace();
+        }
+    } 
 }
