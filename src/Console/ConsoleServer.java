@@ -62,7 +62,8 @@ public class ConsoleServer {
             
             /*Authenticate*/
             while(true) {
-                writer.println(message);
+                System.out.println("Enc : "+ cipher.encrypt(message));
+                writer.println(cipher.encrypt(message));
                 String receiveMessage = reader.readLine();
                 if(receiveMessage.equals(message)) {
                     System.out.println("Authenticated");

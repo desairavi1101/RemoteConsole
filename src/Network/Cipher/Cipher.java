@@ -15,7 +15,11 @@ public class Cipher {
             case "caesar":
                 return new CaesarCipher(key);
             case "poly":
-                
+                return new PolyCipher(key);
+            case "rotation":
+                return new RotationCipher(key);
+            default:
+                return new DummyCipher();
         }  
     }
 }

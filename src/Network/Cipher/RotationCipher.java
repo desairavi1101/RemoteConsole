@@ -13,8 +13,9 @@ public class RotationCipher implements ICipher{
     
     int key;
 
-    public RotationCipher(int key) {
-        this.key = key;
+    public RotationCipher(String key) {
+        this.key = Integer.parseInt(key);
+        
     }
     
     @Override

@@ -48,9 +48,6 @@ public class ConsoleClient {
         
         cipher = Cipher.getCipher(cipherType,key);
         
-        
-        
-        
         Scanner sc = new Scanner(System.in);
         TCPClient client = new TCPClient();
         client.connect(host,port);
@@ -64,7 +61,9 @@ public class ConsoleClient {
             /*Authenticate*/
             while (true) {
                 String message = reader.readLine();
+                System.out.println("Message : " + message);
                 String plain = cipher.decrypt(message);
+                System.out.println("Decrypt : " + plain);
                 writer.println(plain);
                 if(plain.equals("hello")) {
                     System.out.println("Authenticated");

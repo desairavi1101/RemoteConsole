@@ -13,8 +13,8 @@ public class CaesarCipher implements ICipher {
     public int key;
     private static String alpha = "abcdefghijklmnopqrstuvwxyz";
 
-    public CaesarCipher(int key) {
-        this.key = key;
+    public CaesarCipher(String key) {
+        this.key = Integer.parseInt(key);
     }
         
     @Override

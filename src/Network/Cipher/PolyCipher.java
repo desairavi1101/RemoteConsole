@@ -11,11 +11,20 @@ package Network.Cipher;
  */
 public class PolyCipher implements ICipher{
     
-    private char[][] V_tbl = new char[26][26];
+    private static char[][] V_tbl = new char[26][26];
     private String key;
-
+    private static String alpha = "abcdefghijklmnopqrstuvwxyz";
     public PolyCipher(String key) {
         this.key = key;
+        for (int i = 0; i < 26; i++) {
+            System.out.println(alpha);
+
+            V_tbl[i] = alpha.toCharArray();
+            char ch = alpha.charAt(0);
+            alpha = alpha.substring(1, alpha.length());
+
+            alpha += ch;
+        }
     }
        
     @Override
@@ -51,6 +60,15 @@ public class PolyCipher implements ICipher{
 
         }
         return temp;
+    }
+    
+    public static void main(String[] args) {
+        PolyCipher c = new PolyCipher("ravi");
+        
+        String msg = c.encrypt("hello");
+        System.out.println(msg);
+        
+        System.out.println(c.decrypt(msg));
     }
     
 }
