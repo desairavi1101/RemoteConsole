@@ -9,8 +9,17 @@ package Network.Cipher;
  *
  * @author Ravi Desai
  */
-public interface ICipher {
+public class MonoCipher implements ICipher{
+    public int key;
     
-    public String encrypt(String plainText);
-    public String decrypt(String plainText);
+    @Override
+    public String encrypt(String plainText) {
+        return "";
+    }
+    
+    @Override
+    public String decrypt(String plainText) {
+        return "";
+    }
+    
 }

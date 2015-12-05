@@ -5,6 +5,7 @@
  */
 package Console;
 
+import Network.Cipher.ICipher;
 import Network.TCPServer;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,6 +21,9 @@ import java.io.PrintStream;
 public class ConsoleServer {
     
     public static void main(String[] args) {
+        
+        int port; 
+        ICipher ciper;
         TCPServer server = new TCPServer();
         server.createServer(8080);
         server.accept();

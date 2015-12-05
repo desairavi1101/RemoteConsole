@@ -31,7 +31,6 @@ public class ConsoleExecuter {
             String[] cmd = {"cmd", "/c", command};
             pb = new ProcessBuilder(cmd);
         }
-        
     }
     
     public void execute() throws IOException {
@@ -49,4 +48,5 @@ public class ConsoleExecuter {
     public void execute(String command) {
         
     }
+    
 }
