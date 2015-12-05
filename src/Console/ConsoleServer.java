@@ -90,7 +90,9 @@ public class ConsoleServer {
                 
                 /*Satus Code*/
                 try {
-                    System.out.println(executer.getExitCode());
+                    int exit = executer.getExitCode();
+                    System.out.println("Exit Code : " +  exit);
+                    writer.println(exit);
                 } catch(InterruptedException ex) {
                     ex.printStackTrace();
                 }
