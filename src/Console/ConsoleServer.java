@@ -73,6 +73,9 @@ public class ConsoleServer {
                 }
             }
             
+            /*Send OS Details */
+            OSHelper.printOSDetails(clientOut);
+            
             //readInputStream(processIn, clientOut);
             
             

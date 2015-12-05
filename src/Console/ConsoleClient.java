@@ -78,6 +78,13 @@ public class ConsoleClient {
                 }
             }
             
+            System.out.println("");
+            /*Read Server OS Info */
+            System.out.println(reader.readLine());
+            System.out.println(reader.readLine());
+            
+            
+            
             OutputStream out = new ByteArrayOutputStream();
             // readInputStream(serverIn, out);
         } catch (IOException ex) {
