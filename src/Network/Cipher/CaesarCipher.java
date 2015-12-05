@@ -36,7 +36,6 @@ public class CaesarCipher implements ICipher {
 			int index = ((int) ch - 97 - key + 26) % 26;
         	temp += alpha.charAt(index);
         }
-
         return temp;
     }
     

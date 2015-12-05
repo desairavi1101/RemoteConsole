@@ -44,9 +44,10 @@ public class ConsoleExecuter {
     public InputStream getErrorStream() {
         return process.getInputStream();
     } 
-    
-    public void execute(String command) {
-        
+    public int getExitCode() {
+        return process.exitValue();
     }
+    
+ 
     
 }

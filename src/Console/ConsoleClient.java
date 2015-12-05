@@ -5,6 +5,10 @@
  */
 package Console;
 
+import static Console.ConsoleServer.cipher;
+import static Console.ConsoleServer.sc;
+import Network.Cipher.Cipher;
+import Network.Cipher.ICipher;
 import Network.TCPClient;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -14,8 +18,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -25,15 +28,59 @@ public class ConsoleClient {
     
     public static void main(String[] args) {
         
+        String host;
+        int port; 
+        ICipher ciper;
+        String key ;
+        String cipherType;
+        
+        System.out.println("Enter Host : ");
+        host = sc.nextLine();
+        
+        System.out.println("Enter Port : ");
+        port = Integer.parseInt(sc.nextLine());
+        
+        System.out.println("Enter Cipher Type : ");
+        cipherType = sc.nextLine();
+        
+        System.err.println("Enter Key : ");
+        key = sc.nextLine();
+        
+        cipher = Cipher.getCipher(cipherType,key);
+        
+        
+        
+        
         Scanner sc = new Scanner(System.in);
         TCPClient client = new TCPClient();
-        client.connect("localhost", 8080);
+        client.connect(host,port);
         
         try {
             InputStream serverIn = client.getInputStream();
+            OutputStream serverOut = client.getOutputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(serverIn));
+            PrintStream writer = new PrintStream(serverOut);
+            
+            /*Authenticate*/
+            while (true) {
+                String message = reader.readLine();
+                String plain = cipher.decrypt(message);
+                writer.println(plain);
+                if(plain.equals("hello")) {
+                    System.out.println("Authenticated");
+                    break;
+                } else {
+                    System.out.println("Authentication Failed");
+                    System.out.println("Enter Cipher Type : ");
+                    cipherType = sc.nextLine();
+
+                    System.err.println("Enter Key : ");
+                    key = sc.nextLine();
+                }
+            }
             
             OutputStream out = new ByteArrayOutputStream();
-            readInputStream(serverIn, out);
+            // readInputStream(serverIn, out);
         } catch (IOException ex) {
             
         }        

@@ -12,6 +12,10 @@ package Network.Cipher;
 public class MonoCipher implements ICipher{
     public int key;
     
+    public MonoCipher(String key) {
+        this.key = Integer.parseInt(key);
+    }
+    
     @Override
     public String encrypt(String plainText) {
         return plainText;

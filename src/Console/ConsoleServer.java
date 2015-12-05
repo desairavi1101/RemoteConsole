@@ -5,6 +5,7 @@
  */
 package Console;
 
+import Network.Cipher.Cipher;
 import Network.Cipher.ICipher;
 import Network.TCPServer;
 import java.io.BufferedReader;
@@ -13,6 +14,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.Scanner;
 
 /**
  *
@@ -20,21 +22,57 @@ import java.io.PrintStream;
  */
 public class ConsoleServer {
     
+    public static ICipher cipher;
+    public static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
         
         int port; 
         ICipher ciper;
+        String key ;
+        String cipherType;
+        
+        System.out.println("Enter Port : ");
+        port = Integer.parseInt(sc.nextLine());
+        
+        System.out.println("Enter Cipher Type : ");
+        cipherType = sc.nextLine();
+        
+        System.err.println("Enter Key : ");
+        key = sc.nextLine();
+        
+        cipher = Cipher.getCipher(cipherType,key);
+       
         TCPServer server = new TCPServer();
-        server.createServer(8080);
+        server.createServer(port);
+        System.out.println("Server is running on port : " + port);
+        
         server.accept();
-        ConsoleExecuter executer = new ConsoleExecuter();
-        executer.initilize("dir");
+        
+        /*Authenticate*/
+        String message = "hello";
+        
+        //ConsoleExecuter executer = new ConsoleExecuter();
+        //executer.initilize("dir");
         try {
-            executer.execute();
-            InputStream processIn = executer.getErrorStream();
+            // InputStream processIn = executer.getErrorStream();
             OutputStream clientOut = server.getOutputStream();
+            InputStream clientIn = server.getInputStream();
+            PrintStream writer = new PrintStream(clientOut);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(clientIn));
             
-            readInputStream(processIn, clientOut);
+            /*Authenticate*/
+            while(true) {
+                writer.println(message);
+                String receiveMessage = reader.readLine();
+                if(receiveMessage.equals(message)) {
+                    System.out.println("Authenticated");
+                    break;
+                } else {
+                    System.err.println("Authentication Failed");
+                }
+            }
+            
+            //readInputStream(processIn, clientOut);
             
             
         } catch (IOException ex) {
@@ -51,5 +89,12 @@ public class ConsoleServer {
             printstream.println(line);
             System.out.println(line);
         } 
+    }
+    
+    public static boolean authenticate() {
+        
+        
+    
+        return true;
     }
 }
