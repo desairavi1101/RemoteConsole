@@ -13,7 +13,11 @@ public class PolyCipher implements ICipher{
     
     private char[][] V_tbl = new char[26][26];
     private String key;
-    
+
+    public PolyCipher(String key) {
+        this.key = key;
+    }
+       
     @Override
     public String encrypt(String plainText) {
         String temp = "";
