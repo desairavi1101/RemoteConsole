@@ -89,7 +89,12 @@ public class ConsoleServer {
                 readInputStream(processErr, clientOut);
                 
                 /*Satus Code*/
-                System.out.println(executer.getExitCode());
+                try {
+                    System.out.println(executer.getExitCode());
+                } catch(InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+                
                 
                 
             }

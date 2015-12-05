@@ -28,6 +28,7 @@ public class ConsoleExecuter {
     
     public void execute() throws IOException {
         process = pb.start();
+        
     }
     
     public InputStream getInputStream() {
@@ -37,8 +38,8 @@ public class ConsoleExecuter {
     public InputStream getErrorStream() {
         return process.getInputStream();
     } 
-    public int getExitCode() {
-        return process.exitValue();
+    public int getExitCode() throws InterruptedException  {
+        return process.waitFor();
     }
     
  
