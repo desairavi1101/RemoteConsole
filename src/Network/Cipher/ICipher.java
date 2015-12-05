@@ -12,5 +12,5 @@ package Network.Cipher;
 public interface ICipher {
     
     public String encrypt(String plainText);
-    public String decrypt(String plainText);
+    public String decrypt(String cipherText);
 }

@@ -14,12 +14,12 @@ public class MonoCipher implements ICipher{
     
     @Override
     public String encrypt(String plainText) {
-        return "";
+        return plainText;
     }
     
     @Override
     public String decrypt(String plainText) {
-        return "";
+        return plainText;
     }
     
 }
