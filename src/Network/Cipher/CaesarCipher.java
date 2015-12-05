@@ -12,7 +12,11 @@ package Network.Cipher;
 public class CaesarCipher implements ICipher {
     public int key;
     private static String alpha = "abcdefghijklmnopqrstuvwxyz";
-    
+
+    public CaesarCipher(int key) {
+        this.key = key;
+    }
+        
     @Override
     public String encrypt(String plainText) {
         String temp = "";

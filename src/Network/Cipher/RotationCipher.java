@@ -12,6 +12,10 @@ package Network.Cipher;
 public class RotationCipher implements ICipher{
     
     int key;
+
+    public RotationCipher(int key) {
+        this.key = key;
+    }
     
     @Override
     public String encrypt(String plainText) {

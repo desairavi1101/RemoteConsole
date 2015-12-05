@@ -11,6 +11,11 @@ package Network.Cipher;
  */
 public class XORCipher implements ICipher{
 String key;
+
+    public XORCipher(String key) {
+        this.key = key;
+    }
+
     @Override
     public String encrypt(String plainText) {
         String temp="" ;
